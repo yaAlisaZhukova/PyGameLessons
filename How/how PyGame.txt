@@ -1,0 +1,225 @@
+https://github.com/yaAlisaZhukova/PyGameLessons
+-------------------------------------------
+1. cd C:\web\AlicaPython\PyGame\Game1
+---------------------------------------------
+2.  
+  иду в папку, где я хочу создать проект
+и создаю виртуальное окружение
+
+C:\web\AlicaPython\PyGame\Game1
+python -m venv venv
+--------------------------------------
+3. активирую виртуальное окружение
+ 
+cd C:\web\Django\djangoapi
+.\venv\Scripts\activate
+-----------------------------------------
+4. pip install pygame 
+
+C:\web\AlicaPython\PyGame\Game1
+(venv) λ pip install pygame
+Collecting pygame
+  Downloading pygame-2.6.1-cp310-cp310-win_amd64.whl (10.6 MB)
+---------------------------------------- 10.6/10.6 MB 20.5 MB/s eta 0:00:00
+Installing collected packages: pygame
+Successfully installed pygame-2.6.1
+
+[notice] A new release of pip available: 22.2.1 -> 24.3.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
+-----------------------------------------
+5. python.exe -m pip install --upgrade pip
+--------------------------------------------
+6. Создаю файл game.py
+
+import pygame as pg
+
+pg.init()
+
+pg.dispay 
+***************************************************************************
+***************************************************************************
+1.
+PyGame\01_empty_screen\game_empty_screen.py
+
+import pygame
+
+pygame.init()
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.8)
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Shooter')
+
+run = True
+while run: 
+	 
+	for event in pygame.event.get():
+		#quit game
+		if event.type == pygame.QUIT:
+			run = False 
+
+pygame.quit()
+---------------------------------------------------
+2. 02_background_savanna
+
+gitPyGames\02_background_savanna\game.py
+
+import pygame as pg
+
+pg.init() 
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.7)
+
+screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pg.display.set_caption('Shooter')
+
+bgImg = pg.image.load('Savanna.png')
+
+run = True
+while run:
+    screen.blit(bgImg, (0, 0))
+
+    for event in pg.event.get():
+        # quit game
+        if event.type == pg.QUIT:
+            run = False
+
+    pg.display.update()
+pg.quit()
+-------------------------------------------------
+3. 03_car_savanna
+
+gitPyGames\03_car_savanna\game.py
+
+import pygame as pg
+
+pg.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.7)
+
+screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pg.display.set_caption('Shooter')
+
+carX = 200
+carY = 240
+carImg = pg.image.load('blueCarSmall.png')
+bgImg = pg.image.load('Savanna.png')
+
+def keyPressed():
+    global carX, carY
+
+    keys = pg.key.get_pressed()
+    if keys[pg.K_LEFT]:
+        carX -= 0.5
+    if keys[pg.K_RIGHT]:
+        carX += 0.5
+    if keys[pg.K_UP]:
+        carY -= 1
+    if keys[pg.K_DOWN]:
+        carY += 0.5
+
+run = True
+while run:
+    screen.blit(bgImg, (0, 0))
+    screen.blit(carImg, (carX, carY))
+    keyPressed()
+
+    if carY > SCREEN_HEIGHT:
+        carY = 240
+    carY += 0.5
+
+    for event in pg.event.get():
+        # quit game
+        if event.type == pg.QUIT:
+            run = False
+
+    pg.display.update()
+pg.quit() 
+-------------------------------------------------
+4. гонки
+
+import pygame as pg
+
+pg.init()
+screen = pg.display.set_mode((800, 600))
+pg.display.set_caption('Shooter')
+
+x = 250
+y = 250
+img = pg.image.load('road.png')
+carImg = pg.image.load('blueCarSmall.png')
+redCarImg = pg.image.load('greyCar.png')
+rect = img.get_rect()
+rect.center = (x, y)
+
+carListY = [[-1100], [-500], [-350], [250]]
+carListY2 = [[-680], [300] ]
+carListY3 = [[-300]]
+carListY4 = [[-320], [-110], [480]]
+
+myCarX = 350
+myCarY = 500
+
+run = True
+
+def keyPressed():
+    global myCarX
+    keys = pg.key.get_pressed()
+    if keys[pg.K_LEFT]:
+       myCarX = myCarX - 0.05
+    if keys[pg.K_RIGHT]:
+       myCarX = myCarX + 0.05
+
+def carMove():
+    for y in carListY:
+        screen.blit(carImg, (240, y[0]))
+        y[0] = y[0] + 0.05
+        if y[0] > 1000:
+            y[0] = -150
+
+    for y in carListY2:
+        screen.blit(carImg, (320, y[0]))
+        y[0] = y[0] + 0.05
+        if y[0] > 1000:
+            y[0] = -150
+
+    for y in carListY3:
+        screen.blit(carImg, (430, y[0]))
+        y[0] = y[0] + 0.05
+        if y[0] > 1000:
+            y[0] = -150
+
+    for y in carListY4:
+        screen.blit(carImg, (520, y[0]))
+        y[0] = y[0] + 0.05
+        if y[0] > 1000:
+            y[0] = -150
+
+while run:
+
+    screen.blit(img, (240, 0))
+    screen.blit(redCarImg, (myCarX, 540))
+    carMove()
+    keyPressed()
+
+    for event in pg.event.get():
+		# quit game
+        if event.type == pg.QUIT:
+            run = False
+    pg.display.update()
+pg.quit()
+-----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
