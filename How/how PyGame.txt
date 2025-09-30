@@ -35,7 +35,109 @@ import pygame as pg
 
 pg.init()
 
-pg.dispay 
+pg.dispay
+**************************************************************************************************************
+                                                 Lesson 1
+                                                int, str, float
+**************************************************************************************************************
+1. print("Hello World!")
+
+sum = 1 + 2
+print(sum)
+
+#sum2 = 1 + '2' 
+
+number = 1
+print('type(number)', type(number))
+
+string = '2'
+print('string', string)
+print('type(string)', type(string))
+
+myInput = input()
+print('type(myInput)', type(myInput))
+
+myInputNumber = int(input())
+print('type(myInputNumber)', type(myInputNumber))
+
+myInputFloat = float(input())
+
+print('myInputFloat', myInputFloat )
+--------------------------------------------
+2. Картинка скользит по экрану
+
+C:\web\Python\Projects\Alisa\AlisaLessons\1_pyGame_rummingCircle.py
+
+import pygame as pg
+
+pg.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.7)
+
+screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pg.display.set_caption('Ghost')
+WHITE = (255, 255, 255) 
+
+carX =  240.0
+carY =  0
+carImg = pg.image.load('img/ghost.png')  
+
+run = True
+while run: 
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))  
+
+    if carY > SCREEN_HEIGHT:
+        carY = 0
+    carY += 0.05
+
+    for event in pg.event.get():
+        # quit game
+        if event.type == pg.QUIT:
+            run = False
+
+    pg.display.update()
+pg.quit() 
+-----------------------------------------------
+3. int, str, input
+
+import pygame as pg
+
+pg.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.7)
+
+screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pg.display.set_caption('Ghost')
+WHITE = (255, 255, 255) 
+
+carX =  int(input("Поместите привидение на экране, введите цифры от 1 до 800 "))
+carY =  0
+print('type(carY)', type(carY))
+
+pathToImg = 'img/ghost.png'
+print('type(pathToImg)', type(pathToImg))
+
+carImg = pg.image.load('img/ghost.png')  
+
+run = True
+while run: 
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))  
+
+    if carY > SCREEN_HEIGHT:
+        carY = 0
+    carY += 0.05
+
+    for event in pg.event.get():
+        # quit game
+        if event.type == pg.QUIT:
+            run = False
+
+    pg.display.update()
+pg.quit()  
 ***************************************************************************
 ***************************************************************************
 1.
