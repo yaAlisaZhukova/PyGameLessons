@@ -138,6 +138,96 @@ while run:
 
     pg.display.update()
 pg.quit()  
+****************************************************************************************
+                                            Lesson 2
+                        clock.tick уменьшаем скорость вызова метода while
+                        [pygame.K_LEFT] двигаем имидж вверх/вниз/вправо/влево                   
+****************************************************************************************
+1. clock.tick уменьшаем скорость вызова метода while
+
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+carX =  240
+carY =  0 
+
+carImg = pygame.image.load('img/ghost.png')  
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))  
+
+    if carY > 600:
+        carY = 0
+    carY += 1
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit() 
+-------------------------------------------------------------------
+2. [pygame.K_LEFT] двигаем имидж вверх/вниз/вправо/влево
+
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+carX =  240
+carY =  0 
+
+carImg = pygame.image.load('img/ghost.png') 
+
+def keyPressed():
+    global carX, carY
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        carX -= 2
+    if keys[pygame.K_RIGHT]:
+        carX += 1
+    if keys[pygame.K_UP]:
+        carY -= 1
+    if keys[pygame.K_DOWN]:
+        carY += 1
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))
+    keyPressed()  
+
+    if carX > 690:
+        carX = -100
+    carX += 1
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit() 		
 ***************************************************************************
                          empty_screen
 ***************************************************************************
