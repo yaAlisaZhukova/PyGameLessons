@@ -544,7 +544,6 @@ while running:
         mirtyX = i*80
         if(count%300==0):
             mirtyY[i]=random.randint(0, 450) 
-            count = 0
         screen.blit(mirtyImg, (mirtyX, mirtyY[i]))  
 
     pygame.display.flip()
