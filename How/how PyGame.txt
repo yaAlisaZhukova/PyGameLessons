@@ -284,7 +284,7 @@ while running:
 pygame.quit()
 ************************************************************************************
                                      Lesson 3
-								random
+								random, line, circle
                                 Циклы While, For
 ************************************************************************************
 1. range(10)
@@ -550,7 +550,100 @@ while running:
     clock.tick(current_fps)  # Limits the frame rate
     
     pygame.display.update()
-pygame.quit()   
+pygame.quit()
+**********************************************************************************
+                                    Lesson 4
+									коллизии .colliderect
+********************************************************************************** 
+1. коллизии .colliderect
+
+import pygame
+import random
+
+# --- Initialization ---
+pygame.init()
+
+# Screen settings
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Treasure Collector")
+
+# Colors
+WHITE = (255, 255, 255)
+
+# --- Load images --- 
+try:
+    player_image = pygame.image.load('img/mirty10.png').convert_alpha()
+    treasure_image = pygame.image.load('img/treasure.png').convert_alpha()
+except pygame.error as e:
+    print(f"Error loading image: {e}")
+    pygame.quit()
+    exit()
+
+# --- Player setup ---
+player_rect = player_image.get_rect(center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2))
+player_speed = 5
+
+# --- Treasure setup ---
+treasures = []
+for _ in range(10): # Create 10 treasures at random positions
+    treasure_rect = treasure_image.get_rect(
+        topleft=(random.randint(0, SCREEN_WIDTH - 50), random.randint(0, SCREEN_HEIGHT - 50))
+    )
+    treasures.append(treasure_rect)
+
+# --- Game loop ---
+running = True
+clock = pygame.time.Clock()
+score = 0
+
+while running:
+    # --- Event handling ---
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # --- Player movement ---
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player_rect.x -= player_speed
+    if keys[pygame.K_RIGHT]:
+        player_rect.x += player_speed
+    if keys[pygame.K_UP]:
+        player_rect.y -= player_speed
+    if keys[pygame.K_DOWN]:
+        player_rect.y += player_speed
+
+    # --- Collision detection ---
+    # Use enumerate to get both the index and the item
+    for i, treasure_rect in enumerate(treasures):
+        if player_rect.colliderect(treasure_rect):
+            # Collision detected, remove the treasure
+            treasures.pop(i)
+            score += 1
+            print(f"Treasure collected! Score: {score}")
+            break # Exit the loop once a treasure is collected
+
+    # --- Drawing ---
+    screen.fill(WHITE) # Clear the screen with a white background
+
+    # Draw treasures
+    for treasure_rect in treasures:
+        screen.blit(treasure_image, treasure_rect)
+
+    # Draw player
+    screen.blit(player_image, player_rect)
+
+    # Update the display
+    pygame.display.flip()
+
+    # Cap the frame rate
+    clock.tick(60)
+
+# --- Quit Pygame ---
+pygame.quit()
+  
 ***************************************************************************
                          empty_screen
 ***************************************************************************
