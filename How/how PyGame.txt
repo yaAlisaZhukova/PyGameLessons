@@ -284,14 +284,89 @@ while running:
 pygame.quit()
 ************************************************************************************
                                      Lesson 3
+								random
                                 Циклы While, For
 ************************************************************************************
 1. range(10)
 
 for i in range(10):
     print('Привет')
+-----------------------------------------
+2. random.randint(0, 800)
+#line:   pygame.draw.line(screen, (255,0,0), (100, 100), (lineX, lineY), 5) 
+#circle: pygame.draw.circle(screen, BLUE, (center_x, center_y), radius)
+
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 16  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+lineX =  240
+lineY =  0
+ 
+screen.fill(WHITE) 
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    
+    lineX = random.randint(0, 800)
+    lineY = random.randint(0, 800)
+    # Draw a red line from (100, 100) with a thickness of 5 pixels
+    pygame.draw.line(screen, (255,0,0), (100, 100), (lineX, lineY), 5)  
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit()
+------------------------------------------
+3. random.randint(0, 800)
+#line:   pygame.draw.line(screen, (255,0,0), (100, 100), (lineX, lineY), 5) 
+#circle: pygame.draw.circle(screen, BLUE, (center_x, center_y), radius)
+
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 16  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+radius = 0
+ 
+screen.fill(WHITE) 
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False 
+    
+    radius = random.randint(0, 800)
+     
+    # Draw a red line from (100, 100) with a thickness of 5 pixels
+    pygame.draw.circle(screen, (255,0,0), (100, 100), radius, 5)  
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit()   
 ----------------------------------------
-2. range(10)
+4. range(10)
 
 import pygame
 
@@ -334,7 +409,7 @@ while running:
     pygame.display.update()
 pygame.quit()
 ----------------------------------------
-3. range от 0 до 800 с шагом 80
+5. range от 0 до 800 с шагом 80
 -(то есть x принимает последовательно значения 0, 80, 160, 240 . . .720)
 
 import pygame
@@ -378,7 +453,7 @@ while running:
     pygame.display.update()
 pygame.quit() 
 -----------------------------------------
-4. random, mirtyY = random.randint(0, 600), list
+6. random, mirtyY = random.randint(0, 600), list
 
 import pygame
 import random
@@ -423,7 +498,60 @@ while running:
     clock.tick(current_fps)  # Limits the frame rate
     
     pygame.display.update()
-pygame.quit()  
+pygame.quit()
+---------------------------------------------------------
+7. Через каждые 300 циклов меняем позицию всех Mirty
+
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+carX =  240
+carY =  0
+mirtyX = 100
+mirtyY = []
+
+count = 0
+
+for i in range(10): 
+    mirtyY.append(random.randint(0, 450)) 
+
+carImg = pygame.image.load('img/ghost.png')
+mirtyImg = pygame.image.load('img/mirty10.png')  
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))
+    count += 1
+
+    if carX > 690:
+        carX = -100
+    carX += 1
+
+    for i in range(10):
+        mirtyX = i*80
+        if(count%300==0):
+            mirtyY[i]=random.randint(0, 450) 
+            count = 0
+        screen.blit(mirtyImg, (mirtyX, mirtyY[i]))  
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit()   
 ***************************************************************************
                          empty_screen
 ***************************************************************************
