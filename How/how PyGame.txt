@@ -281,7 +281,149 @@ while running:
     clock.tick(current_fps)  # Limits the frame rate
     
     pygame.display.update()
-pygame.quit()  		
+pygame.quit()
+************************************************************************************
+                                     Lesson 3
+                                Циклы While, For
+************************************************************************************
+1. range(10)
+
+for i in range(10):
+    print('Привет')
+----------------------------------------
+2. range(10)
+
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+carX =  240
+carY =  0
+mirtyX = 100
+mirtyY = 400
+
+carImg = pygame.image.load('img/ghost.png')
+mirtyImg = pygame.image.load('img/mirty10.png')  
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))
+
+    if carX > 690:
+        carX = -100
+    carX += 1
+
+    for i in range(10):
+        mirtyX = 80*i
+        screen.blit(mirtyImg, (mirtyX, mirtyY))  
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit()
+----------------------------------------
+3. range от 0 до 800 с шагом 80
+-(то есть x принимает последовательно значения 0, 80, 160, 240 . . .720)
+
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+carX =  240
+carY =  0
+mirtyX = 100
+mirtyY = 400
+
+carImg = pygame.image.load('img/ghost.png')
+mirtyImg = pygame.image.load('img/mirty10.png')  
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))
+
+    if carX > 690:
+        carX = -100
+    carX += 1
+
+    for i in range(0,800,80):
+        mirtyX = i
+        screen.blit(mirtyImg, (mirtyX, mirtyY))  
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit() 
+-----------------------------------------
+4. random, mirtyY = random.randint(0, 600), list
+
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+carX =  240
+carY =  0
+mirtyX = 100
+mirtyY = []
+
+for i in range(10): 
+    mirtyY.append(random.randint(0, 450)) 
+
+carImg = pygame.image.load('img/ghost.png')
+mirtyImg = pygame.image.load('img/mirty10.png')  
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))
+
+    if carX > 690:
+        carX = -100
+    carX += 1
+
+    for i in range(10):
+        mirtyX = i*80 
+        screen.blit(mirtyImg, (mirtyX, mirtyY[i]))  
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit()  
 ***************************************************************************
                          empty_screen
 ***************************************************************************
