@@ -55,7 +55,18 @@ File > Settings (Windows/Linux)
 ->Appearance & Behavior-> Appearance
 -> Theme -> Light with Light Header -> OK
 ----------------------------------
-10.
+10. иду в папку, где я хочу создать проект
+и создаю виртуальное окружение
+
+cd C:\web\Python\Projects\Alisa\AlisaLessons
+python -m venv venv   
+--------------------------------------
+11. активирую виртуальное окружение
+ 
+cd C:\web\Python\Projects\Alisa\AlisaLessons
+.\venv\Scripts\activate
+--------------------------------------
+12.
 pip install pyGame
 **************************************************************************************************************
                                                  Lesson 1
