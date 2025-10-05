@@ -36,6 +36,27 @@ import pygame as pg
 pg.init()
 
 pg.dispay
+---------------------------------------
+7.
+pyCharm interpreter
+
+File > Settings
+left pane, expand "Project: <your project name>" and select Python Interpreter.
+Python -> Interpreter -> dropdown -> Python 3.13 -> OK
+------------------------------------
+8.
+pyCharm Terminal
+view -> Tools Windows -> Terminal
+------------------------------------
+9.
+Light Theme
+
+File > Settings (Windows/Linux)
+->Appearance & Behavior-> Appearance
+-> Theme -> Light with Light Header -> OK
+----------------------------------
+10.
+pip install pyGame
 **************************************************************************************************************
                                                  Lesson 1
                                                 int, str, float
