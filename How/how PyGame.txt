@@ -229,7 +229,7 @@ while running:
     pygame.display.update()
 pygame.quit()
 --------------------------------------------------
-3. mirty
+3. mirty Alisa
 
 import pygame
 
@@ -282,11 +282,11 @@ while running:
     
     pygame.display.update()
 pygame.quit()
-************************************************************************************
+*********************************************************************************************************************************
                                      Lesson 3
 								random, line, circle
                                 Циклы While, For
-************************************************************************************
+*********************************************************************************************************************************
 1. range(10)
 
 for i in range(10):
@@ -451,9 +451,74 @@ while running:
     clock.tick(current_fps)  # Limits the frame rate
     
     pygame.display.update()
-pygame.quit() 
------------------------------------------
-6. random, mirtyY = random.randint(0, 600), list
+pygame.quit()  
+--------------------------------------------
+6. range(10) Alisa
+
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255) 
+
+carX =  240
+carY =  0 
+mirtyX = 100
+mirtyY = 300
+tresX = 400
+tresY = 500
+
+carImg = pygame.image.load('img/ghost.png') 
+mirtyImg = pygame.image.load('img/mirty10.png') 
+tresImg = pygame.image.load('img/treasure.png') 
+
+def keyPressed():
+    global mirtyX, mirtyY
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        mirtyX -= 1
+    if keys[pygame.K_RIGHT]:
+        mirtyX += 1
+    if keys[pygame.K_UP]:
+        mirtyY -= 1
+    if keys[pygame.K_DOWN]:
+        mirtyY += 1
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    screen.blit(carImg, (carX, carY))
+    screen.blit(mirtyImg, (mirtyX, mirtyY))
+    keyPressed()  
+
+    if carX > 690:
+        carX = -100
+    carX += 1
+
+    for i in range(10):
+        tresX = 40*i
+        screen.blit(tresImg, (tresX, tresY))  
+
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+    
+    pygame.display.update()
+pygame.quit()
+****************************************************************************************************************************
+                                                    Lesson 4
+                                                      list
+****************************************************************************************************************************
+1. random, mirtyY = random.randint(0, 600), list
 
 import pygame
 import random
@@ -551,6 +616,7 @@ while running:
     
     pygame.display.update()
 pygame.quit()
+
 **********************************************************************************
                                     Lesson 4
 									коллизии .colliderect
