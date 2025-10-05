@@ -1,20 +1,8 @@
 https://github.com/yaAlisaZhukova/PyGameLessons
 -------------------------------------------
 1. cd C:\web\AlicaPython\PyGame\Game1
----------------------------------------------
-2.  
-  иду в папку, где я хочу создать проект
-и создаю виртуальное окружение
-
-C:\web\AlicaPython\PyGame\Game1
-python -m venv venv
---------------------------------------
-3. активирую виртуальное окружение
- 
-cd C:\web\Django\djangoapi
-.\venv\Scripts\activate
 -----------------------------------------
-4. pip install pygame 
+2. pip install pygame
 
 C:\web\AlicaPython\PyGame\Game1
 (venv) λ pip install pygame
@@ -27,9 +15,9 @@ Successfully installed pygame-2.6.1
 [notice] A new release of pip available: 22.2.1 -> 24.3.1
 [notice] To update, run: python.exe -m pip install --upgrade pip
 -----------------------------------------
-5. python.exe -m pip install --upgrade pip
+3. python.exe -m pip install --upgrade pip
 --------------------------------------------
-6. Создаю файл game.py
+4. Создаю файл game.py
 
 import pygame as pg
 
@@ -37,31 +25,31 @@ pg.init()
 
 pg.dispay
 ---------------------------------------
-7.
+5.
 pyCharm interpreter
 
 File > Settings
 left pane, expand "Project: <your project name>" and select Python Interpreter.
 Python -> Interpreter -> dropdown -> Python 3.13 -> OK
 ------------------------------------
-8.
+6.
 pyCharm Terminal
 view -> Tools Windows -> Terminal
 ------------------------------------
-9.
+7.
 Light Theme
 
 File > Settings (Windows/Linux)
 ->Appearance & Behavior-> Appearance
 -> Theme -> Light with Light Header -> OK
 ----------------------------------
-10. иду в папку, где я хочу создать проект
+8. иду в папку, где я хочу создать проект
 и создаю виртуальное окружение
 
 cd C:\web\Python\Projects\Alisa\AlisaLessons
 python -m venv venv   
 --------------------------------------
-11. активирую виртуальное окружение
+9. активирую виртуальное окружение
  
 cd C:\web\Python\Projects\Alisa\AlisaLessons
 .\venv\Scripts\activate
