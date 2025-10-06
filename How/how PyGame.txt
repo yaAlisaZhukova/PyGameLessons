@@ -268,7 +268,7 @@ mirtyX = 100
 mirtyY = 300
 
 carImg = pygame.image.load('img/ghost.png') 
-mirtyImg = pygame.image.load('img/mirty.png') 
+mirtyImg = pygame.image.load('img/mirty10.png') 
 
 def keyPressed():
     global mirtyX, mirtyY
@@ -314,7 +314,7 @@ for i in range(10):
 -----------------------------------------
 2. random.randint(0, 800)
 #line:   pygame.draw.line(screen, (255,0,0), (100, 100), (lineX, lineY), 5) 
-#circle: pygame.draw.circle(screen, BLUE, (center_x, center_y), radius)
+#circle: pygame.draw.circle(screen, BLUE, (center_x, center_y), radius, 5)
 
 import pygame
 import random
@@ -352,7 +352,7 @@ pygame.quit()
 ------------------------------------------
 3. random.randint(0, 800)
 #line:   pygame.draw.line(screen, (255,0,0), (100, 100), (lineX, lineY), 5) 
-#circle: pygame.draw.circle(screen, BLUE, (center_x, center_y), radius)
+#circle: pygame.draw.circle(screen, BLUE, (center_x, center_y), radius, 5)
 
 import pygame
 import random
@@ -729,7 +729,69 @@ while running:
 
 # --- Quit Pygame ---
 pygame.quit()
-  
+******************************************************************************
+                                      Lesson 9
+                                 Классы. Полиморфизм.
+****************************************************************************** 
+1. class Player
+
+import pygame
+
+# Inherit from pygame.sprite.Sprite
+class Player(pygame.sprite.Sprite):
+    def __init__(self, x, y, image):
+        self.image = image
+        self.rect = self.image.get_rect(topleft=(x, y)) # Get the rect and position it
+
+        self.speed = 5
+
+    def update(self):
+        # Example: Simple movement based on key presses
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+        if keys[pygame.K_UP]:
+            self.rect.y -= self.speed
+        if keys[pygame.K_DOWN]:
+            self.rect.y += self.speed
+
+-----------------------------------------------------
+2. main.py
+
+import pygame
+from player import Player
+
+# --- Initialization and setup ---
+pygame.init()
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Player class")
+
+player_image = pygame.image.load('img/mirty10.png')
+player = Player(screen_width // 2 - 25, screen_height - 200, player_image) # Create a player instance
+
+running = True
+clock = pygame.time.Clock()
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    player.update() # Update the player's state
+
+    screen.fill((255, 255, 255)) # Fill the background with white
+    screen.blit(player.image, player.rect) # Draw the player on the screen
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
+
+ 
 ***************************************************************************
                          empty_screen
 ***************************************************************************
