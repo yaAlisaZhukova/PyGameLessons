@@ -42,7 +42,7 @@ Location  C:\web\Python\Projects\MapList\.venv
 теперь вижу папку .venv
 
 активирую виртуальное окружение:
-.\venv\Scripts\activate
+.venv\Scripts\activate
 теперь вижу (.venv) 
 теперь вижу дропдаун: File > Settings -> Python -> Interpreter -> dropdown -> Python 3.13 -> OK
 проверяю, что работает pip install: pip install pyGame
