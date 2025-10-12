@@ -15,47 +15,56 @@ Successfully installed pygame-2.6.1
 [notice] A new release of pip available: 22.2.1 -> 24.3.1
 [notice] To update, run: python.exe -m pip install --upgrade pip
 -----------------------------------------
-3. python.exe -m pip install --upgrade pip
---------------------------------------------
-4. Создаю файл game.py
-
-import pygame as pg
-
-pg.init()
-
-pg.dispay
----------------------------------------
-5.
-pyCharm interpreter
-
-File > Settings
-left pane, expand "Project: <your project name>" and select Python Interpreter.
-Python -> Interpreter -> dropdown -> Python 3.13 -> OK
-------------------------------------
-6.
-pyCharm Terminal
-view -> Tools Windows -> Terminal
-------------------------------------
-7.
-Light Theme
-
-File > Settings (Windows/Linux)
-->Appearance & Behavior-> Appearance
--> Theme -> Light with Light Header -> OK
+3. python.exe -m pip install --upgrade pip 
 ----------------------------------
-8. иду в папку, где я хочу создать проект
+4. иду в папку, где я хочу создать проект
 и создаю виртуальное окружение
 
 cd C:\web\Python\Projects\Alisa\AlisaLessons
 python -m venv venv   
 --------------------------------------
-9. активирую виртуальное окружение
+5. активирую виртуальное окружение
+Для работы в pyCharm не надо
  
 cd C:\web\Python\Projects\Alisa\AlisaLessons
 .\venv\Scripts\activate
+---------------------------------------
+6.
+pyCharm interpreter
+
+File > Settings  
+
+left pane, expand "Project: <your project name>" and select Python Interpreter:
+Python -> Interpreter -> dropdown -> Python 3.13 -> OK
+
+Python -> Interpreter -> Add Interpreter -> Add Local Interpreter -> Select existing ->
+ Image папки -> AlisaLessons -> .venv -> Scripts -> Python.exe -> OK
+------------------------------------
+7.
+pyCharm Terminal
+view -> Tools Windows -> Terminal
+------------------------------------
+8.
+Light Theme
+
+File > Settings (Windows/Linux)
+->Appearance & Behavior-> Appearance
+-> Theme -> Light with Light Header -> OK 
 --------------------------------------
-12.
+9.
 pip install pyGame
+---------------------------------------
+10. Создаю файл game.py
+
+import pygame 
+
+pygame.init()
+
+pygame.dispay
+---------------------------------------
+11. 
+ 3.14.0 Documentation » The Python Tutorial » 4. More Control Flow Tools
+https://docs.python.org/3/tutorial/controlflow.html
 **************************************************************************************************************
                                                  Lesson 1
                                                 int, str, float
