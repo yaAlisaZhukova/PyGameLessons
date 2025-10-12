@@ -56,11 +56,26 @@ pip install pyGame
 ---------------------------------------
 10. Создаю файл game.py
 
-import pygame 
+import pygame
 
 pygame.init()
 
-pygame.dispay
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = SCREEN_WIDTH * 0.7
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Ghost') 
+
+run = True
+while run: 
+
+    for event in pygame.event.get():
+        # quit game
+        if event.type == pygame.QUIT:
+            run = False
+
+    pygame.display.update()
+pygame.quit()
 ---------------------------------------
 11. 
  3.14.0 Documentation » The Python Tutorial » 4. More Control Flow Tools
