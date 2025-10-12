@@ -32,8 +32,22 @@ cd C:\web\Python\Projects\Alisa\AlisaLessons
 6.
 pyCharm interpreter
 
-File > Settings  
+Создаю виртуальное окружение(Generate new):
 
+File > Settings
+
+Python -> Interpreter -> Add Interpreter -> Add Local Interpreter -> Generate new 
+Location  C:\web\Python\Projects\MapList\.venv
+-> OK
+теперь вижу папку .venv
+
+активирую виртуальное окружение:
+.\venv\Scripts\activate
+теперь вижу (.venv) 
+теперь вижу дропдаун: File > Settings -> Python -> Interpreter -> dropdown -> Python 3.13 -> OK
+проверяю, что работает pip install: pip install pyGame
+
+если уже есть .venv и надо сменить Interprter(Select existing):
 left pane, expand "Project: <your project name>" and select Python Interpreter:
 Python -> Interpreter -> dropdown -> Python 3.13 -> OK
 
@@ -609,6 +623,44 @@ while running:
     pygame.display.update()
 pygame.quit()
 ---------------------------------------------------------
+2. map
+
+size = [100, 200, 50]
+size_lambda = map(lambda x: x*2, size)
+size_lambda_list = list(map(lambda x: x*2, size))
+
+print(size_lambda_list)
+---------------------------------------------------------------
+3. map
+
+    size = [100, 200, 50]
+	res = ""
+    match size:
+        case s1, s2:
+            res = ", ".join(map(str, [s2, s1]))
+        case s1, s2, s3:
+            res = ", ".join(map(str, [s2, s1, s3])) 
+        case _:
+            res = "Некорректный формат данных"
+	print(res)
+-------------------------------------------------
+4.
+
+size = [100, 200, 50]
+size_strings = map(str, size)
+
+size_strings_list = list(map(str, size))
+print(size_strings_list)
+
+len_size = len(size)
+res = ""
+match len_size:
+    case 2 | 3:
+        res = ", ".join(size_strings)
+    case _:
+        res = "Некорректный формат данных"
+print(res)	
+-----------------------------------------------------------
 7. Через каждые 300 циклов меняем позицию всех Mirty
 
 import pygame
