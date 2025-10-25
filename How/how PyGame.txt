@@ -19,6 +19,8 @@ Successfully installed pygame-2.6.1
 ----------------------------------
 4. иду в папку, где я хочу создать проект
 и создаю виртуальное окружение
+- Для работы в pyCharm не надо так, используй шаги в pyCharm
+смотри ниже 6. pyCharm interpreter  
 
 cd C:\web\Python\Projects\Alisa\AlisaLessons
 python -m venv venv   
@@ -29,8 +31,7 @@ python -m venv venv
 cd C:\web\Python\Projects\Alisa\AlisaLessons
 .\venv\Scripts\activate
 ---------------------------------------
-6.
-pyCharm interpreter
+6. pyCharm interpreter
 
 Создаю виртуальное окружение(Generate new):
 
@@ -71,6 +72,7 @@ pip install pyGame
 10. Создаю файл game.py
 
 import pygame
+import sys
 
 pygame.init()
 
@@ -90,6 +92,7 @@ while run:
 
     pygame.display.update()
 pygame.quit()
+sys.exit()
 ---------------------------------------
 11. 
  3.14.0 Documentation » The Python Tutorial » 4. More Control Flow Tools
@@ -160,15 +163,15 @@ pg.quit()
 -----------------------------------------------
 3. int, str, input
 
-import pygame as pg
+import pygame
 
-pg.init()
+pygame.init()
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.7)
 
-screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pg.display.set_caption('Ghost')
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Ghost')
 WHITE = (255, 255, 255) 
 
 carX =  int(input("Поместите привидение на экране, введите цифры от 1 до 800 "))
@@ -178,7 +181,7 @@ print('type(carY)', type(carY))
 pathToImg = 'img/ghost.png'
 print('type(pathToImg)', type(pathToImg))
 
-carImg = pg.image.load('img/ghost.png')  
+carImg = pygame.image.load('img/ghost.png')  
 
 run = True
 while run: 
@@ -189,13 +192,13 @@ while run:
         carY = 0
     carY += 0.05
 
-    for event in pg.event.get():
+    for event in pygame.event.get():
         # quit game
-        if event.type == pg.QUIT:
+        if event.type == pygame.QUIT:
             run = False
 
-    pg.display.update()
-pg.quit()  
+    pygame.display.update()
+pygame.quit()  
 ****************************************************************************************
                                             Lesson 2
                         clock.tick уменьшаем скорость вызова метода while
@@ -623,7 +626,14 @@ while running:
     pygame.display.update()
 pygame.quit()
 ---------------------------------------------------------
-2. map
+2. join
+
+size = ['Я', 'люблю', 'pyGame.']
+size_join = " ".join(size)
+
+print(size_join) 
+---------------------------------------------------------
+3. map
 
 size = [100, 200, 50]
 size_lambda = map(lambda x: x*2, size)
@@ -631,7 +641,22 @@ size_lambda_list = list(map(lambda x: x*2, size))
 
 print(size_lambda_list)
 ---------------------------------------------------------------
-3. map
+4. map, join
+
+size = ['Я', 'люблю' 'pyGame.']
+size_join = " ".join(size)
+
+print(size_join) 
+----------------------------------------------------------------
+5. map, join
+
+size = ['Бабушке', 60, 'лет.']
+size_lambda = map(str, size)
+size_join = " ".join(size_lambda)
+
+print(size_join)
+---------------------------------------------------------------
+6. match, case, map, join
 
     size = [100, 200, 50]
 	res = ""
@@ -642,9 +667,23 @@ print(size_lambda_list)
             res = ", ".join(map(str, [s2, s1, s3])) 
         case _:
             res = "Некорректный формат данных"
-	print(res)
--------------------------------------------------
-4.
+	print(res)	
+-----------------------------------------------------------------
+7.  match, case, map, join
+
+	size = [100, 200, 50]
+	res = ""
+	match size:
+		case [s1, s2]:
+			res = ", ".join(map(str, [s2, s1]))
+		case [s1, s2, s3]:
+			res = ", ".join(map(str, [s2, s1, s3]))
+		case _:
+			res = "Некорректный формат данных"
+	print(res)		
+
+-----------------------------------------------------------------------------------------------------------------
+8. len(size)
 
 size = [100, 200, 50]
 size_strings = map(str, size)
@@ -659,9 +698,49 @@ match len_size:
         res = ", ".join(size_strings)
     case _:
         res = "Некорректный формат данных"
-print(res)	
+print(res)
+--------------------------------------------------
+9. map
+
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255)
+carX = 100
+carY = []
+
+for i in range(10):
+    carY.append(random.randint(-500, 550))
+mirtyImg = pygame.image.load('img/car.png')
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+    #mirtyY = list(map(lambda x: x + 1, mirtyY))
+    carY = list(map(lambda x: -100 if x > 700 else x + 1, carY))
+
+    for i in range(10):
+        carX = i * 80
+        screen.blit(mirtyImg, (carX, carY[i]))
+
+    pygame.display.flip()
+    clock.tick(current_fps)  # Limits the frame rate
+
+    pygame.display.update()
+pygame.quit() 
+	
 -----------------------------------------------------------
-7. Через каждые 300 циклов меняем позицию всех Mirty
+10. Через каждые 300 циклов меняем позицию всех Mirty
 
 import pygame
 import random
@@ -717,6 +796,44 @@ pygame.quit()
                                     Lesson 4
 									коллизии .colliderect
 ********************************************************************************** 
+1.
+import pygame
+pygame.init()
+
+screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Alisa Lessons")
+
+imgMirty = pygame.image.load('img/mirty10.png')
+mirtyRect = imgMirty.get_rect(center=(400, 400))
+showMirty = True
+
+imgStone = pygame.image.load('img/stone.png')
+stoneRect = imgStone.get_rect(center=(100, 400))
+
+clock = pygame.time.Clock()
+
+run = True
+while run:
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             run = False
+
+     screen.fill((0,111,111))
+     stoneRect.x += 1
+
+     if showMirty:
+         screen.blit(imgMirty, mirtyRect)
+
+     screen.blit(imgStone, stoneRect)
+
+     if mirtyRect.colliderect(stoneRect):
+         showMirty = False
+
+     pygame.display.flip()
+     clock.tick(60)
+pygame.quit()
+sys.exit()
+-----------------------------------------
 1. коллизии .colliderect
 
 import pygame
@@ -804,6 +921,79 @@ while running:
     clock.tick(60)
 
 # --- Quit Pygame ---
+pygame.quit()
+---------------------------------------------
+2.
+
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+running = True
+avaria = False
+current_fps = 60  # Initial desired FPS
+
+WHITE = (255, 255, 255)
+
+def keyPressed():
+    global mirtyX, mirtyY
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        #mirtyX -= 1
+        mirty_rect.x -= 1
+    if keys[pygame.K_RIGHT]:
+        #mirtyX += 1
+        mirty_rect.x += 1
+    if keys[pygame.K_UP]:
+        #mirtyY -= 1
+        mirty_rect.y -= 1
+    if keys[pygame.K_DOWN]:
+        #mirtyY += 1
+        mirty_rect.y += 1
+
+carImg = pygame.image.load('img/car.png')
+carAllRect = []
+for _ in range(10): # Create 10 treasures at random positions
+    car_rect = carImg.get_rect(
+        topleft=(random.randint(0, 750), random.randint(-500, 550))
+    )
+    carAllRect.append(car_rect)
+
+mirtyImg = pygame.transform.scale(pygame.image.load('img/mirty10.png'), (80, 120))
+mirty_rect = mirtyImg.get_rect(center=(400, 450))
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(WHITE)
+
+    # --- Collision detection --- 
+    for rect in carAllRect:
+        if mirty_rect.colliderect(rect):
+            avaria = True
+            break
+
+    keyPressed()
+    screen.blit(mirtyImg, mirty_rect)
+
+    for rect in carAllRect:
+        if not avaria:
+            rect.y += 1
+        if rect.y > 800:
+            rect.y = -300
+
+    for i in range(10):
+        screen.blit(carImg, carAllRect[i])
+
+    clock.tick(current_fps)  # Limits the frame rate
+
+    pygame.display.update()
 pygame.quit()
 ******************************************************************************
                                       Lesson 9
@@ -1043,7 +1233,88 @@ while run:
     pg.display.update()
 pg.quit()
 -----------------------------------------------
+**********************************************************************************************************
+Урок 3. Циклы while и for.
+Урок 2 Задание 1
 
+Напишите программу, которая считывает одну строку. Если это строка «Python»,
+ программа выводит «ДА» в противном случае программа выводит «НЕТ».
+ 
+intut_data = input('Какой язык вы изучаете? ')
+if(intut_data == 'Python'):
+   print('ДА')
+else:
+   print('НЕТ')
+------------------------------------------------
+Урок 2 Задание 2
+
+Даны три целых числа. Определите, сколько среди них совпадающих. Программа должна вывести одно из чисел: 3 
+(если все совпадают), 2 (если два совпадает) или 0 (если все числа различны).
+
+a = 1
+b = 4
+c = 1
+
+if a == b == c:
+   print(3)
+elif a == b or a == c or b == c:
+   print(2)
+else:
+   print(0)
+------------------------------------------------   
+Урок 2 Тест 3
+#2
+
+    size = [100, 200, 50]
+	res = ""
+    match size:
+        case s1, s2:
+            res = ", ".join(map(str, [s2, s1]))
+        case s1, s2, s3:
+            res = ", ".join(map(str, [s2, s1, s3])) 
+        case _:
+            res = "Некорректный формат данных"
+	print(res)
+-------------------------------------------------	
+Урок 3 Задание 1
+
+Напишите программу, которая выводит текст «Python is awesome!» (без кавычек)  10 раз.
+
+Тестовые данные:
+
+Sample Input:
+
+Sample Output:
+
+Python is awesome! Python is awesome! Python is awesome! Python is awesome! Python is awesome! Python is awesome!
+ Python is awesome! Python is awesome! Python is awesome! Python is awesome!
+ 
+for i in range(10):
+    print('Python is awesome! ', end='')
+-------------------------------------------------------	
+Урок 3 Задание 2
+
+Последовательность чисел 1
+
+Даны два целых числа mm и nn ( m≤nm≤n). Напишите программу, которая выводит все целые 
+числа от mm до nn включительно.
+
+Тестовые данные:
+
+Sample Input:
+
+1 9
+
+Sample Output:
+
+1 2 3 4 5 6 7 8 9
+
+mm = 3
+nn = 5
+
+for i in range (mm, nn + 1):
+    print(i, end=' ')
+---------------------------------------------------------	
 
 
 
