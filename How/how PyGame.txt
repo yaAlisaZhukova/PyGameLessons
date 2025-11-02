@@ -77,7 +77,7 @@ import sys
 pygame.init()
 
 SCREEN_WIDTH = 800
-SCREEN_HEIGHT = SCREEN_WIDTH * 0.7
+SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ghost') 
@@ -94,9 +94,15 @@ while run:
 pygame.quit()
 sys.exit()
 ---------------------------------------
-11. 
- 3.14.0 Documentation » The Python Tutorial » 4. More Control Flow Tools
-https://docs.python.org/3/tutorial/controlflow.html
+11.  
+pixilArt 
+рисуем имиджи на прозрачном фоне
+
+https://www.pixilart.com/draw?ref=home-page
+---------------------------------------------
+12. Remove backgrounds
+
+https://picsart.com/background-remover/
 **************************************************************************************************************
                                                  Lesson 1
                                                 int, str, float
@@ -129,20 +135,20 @@ print('myInputFloat', myInputFloat )
 
 C:\web\Python\Projects\Alisa\AlisaLessons\1_pyGame_rummingCircle.py
 
-import pygame as pg
+import pygame 
 
-pg.init()
+pygame.init()
 
 SCREEN_WIDTH = 800
-SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.7)
+SCREEN_HEIGHT = 560
 
-screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pg.display.set_caption('Ghost')
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Ghost')
 WHITE = (255, 255, 255) 
 
 carX =  240.0
 carY =  0
-carImg = pg.image.load('img/ghost.png')  
+carImg = pygame.image.load('img/ghost.png')  
 
 run = True
 while run: 
@@ -153,13 +159,13 @@ while run:
         carY = 0
     carY += 0.05
 
-    for event in pg.event.get():
+    for event in pygame.event.get():
         # quit game
-        if event.type == pg.QUIT:
+        if event.type == pygame.QUIT:
             run = False
 
-    pg.display.update()
-pg.quit() 
+    pygame.display.update()
+pygame.quit() 
 -----------------------------------------------
 3. int, str, input
 
@@ -168,7 +174,7 @@ import pygame
 pygame.init()
 
 SCREEN_WIDTH = 800
-SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.7)
+SCREEN_HEIGHT = 560
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ghost')
@@ -798,6 +804,8 @@ pygame.quit()
 ********************************************************************************** 
 1.
 import pygame
+import sys
+
 pygame.init()
 
 screen = pygame.display.set_mode((800, 600))
@@ -833,8 +841,106 @@ while run:
      clock.tick(60)
 pygame.quit()
 sys.exit()
+--------------------------------------------
+2. import random
+
+import pygame
+import sys
+import random
+
+pygame.init()
+
+screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Alisa Lessons")
+
+imgMirty = pygame.image.load('img/mirty10.png')
+mirtyRect = imgMirty.get_rect(topleft=(400, 100))
+showMirty = True
+
+imgStone = pygame.image.load('img/stone.png')
+stoneRect = imgStone.get_rect(topleft=(100, 400))
+
+clock = pygame.time.Clock()
+
+run = True
+while run:
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             run = False
+
+     screen.fill((0,111,111))
+     if stoneRect.x == 600:
+         stoneRect.x = -50
+         stoneRect.y = random.randint(50, 550)
+     stoneRect.x += 1
+
+     if showMirty:
+         screen.blit(imgMirty, mirtyRect)
+
+     screen.blit(imgStone, stoneRect)
+
+     if mirtyRect.colliderect(stoneRect):
+         showMirty = False
+
+     pygame.display.flip()
+     clock.tick(60)
+pygame.quit()
+sys.exit()
+--------------------------------------------
+3. keys[pygame.K_LEFT]
+
+import pygame
+import sys
+pygame.init()
+
+screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Alisa Lessons")
+
+imgMirty = pygame.image.load('img/mirty10.png')
+mirtyRect = imgMirty.get_rect(center=(600, 400))
+showMirty = True
+
+imgStone = pygame.image.load('img/stone.png')
+stoneRect = imgStone.get_rect(center=(100, 400))
+
+clock = pygame.time.Clock()
+
+def keyPressed():  
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        mirtyRect.x -= 1
+    if keys[pygame.K_RIGHT]:
+        mirtyRect.x += 1
+    if keys[pygame.K_UP]:
+        mirtyRect.y -= 1
+    if keys[pygame.K_DOWN]:
+        mirtyRect.y += 1
+
+run = True
+while run:
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             run = False
+
+     screen.fill((0,111,111))
+     keyPressed()
+
+     stoneRect.x += 1
+
+     if showMirty:
+         screen.blit(imgMirty, mirtyRect)
+
+     screen.blit(imgStone, stoneRect)
+
+     if mirtyRect.colliderect(stoneRect):
+         showMirty = False
+
+     pygame.display.flip()
+     clock.tick(60)
+pygame.quit()
+sys.exit()
 -----------------------------------------
-1. коллизии .colliderect
+4. коллизии .colliderect
 
 import pygame
 import random
@@ -923,7 +1029,7 @@ while running:
 # --- Quit Pygame ---
 pygame.quit()
 ---------------------------------------------
-2.
+5.
 
 import pygame
 import random
@@ -995,6 +1101,88 @@ while running:
 
     pygame.display.update()
 pygame.quit()
+**********************************************************************************
+                                            Lesson 5
+											Doctionary
+**********************************************************************************
+1. 
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 560
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Ghost')
+WHITE = (255, 255, 255)
+clock = pygame.time.Clock()
+
+carImg = pygame.image.load('img/car.png')
+ghostImg = pygame.image.load('img/ghost.png')
+
+imageDict = {'x': random.randint(0, 750), 'y': random.randint(-200, 560), 'img': random.randint(0, 1)}
+
+run = True
+while run:
+    screen.fill(WHITE)
+
+    if imageDict['img'] == 0:
+        screen.blit(carImg, (imageDict['x'], imageDict['y']))
+    elif imageDict['img'] == 1:
+        screen.blit(ghostImg, (imageDict['x'], imageDict['y']))
+
+    for event in pygame.event.get():
+        # quit game
+        if event.type == pygame.QUIT:
+            run = False
+
+    pygame.display.update()
+    clock.tick(60)
+pygame.quit()
+sys.exit()
+----------------------------------------------
+2. 
+import pygame
+import random
+import sys
+
+pygame.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 560
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Ghost')
+WHITE = (255, 255, 255)
+clock = pygame.time.Clock()
+
+carImg = pygame.image.load('img/car.png')
+ghostImg = pygame.image.load('img/ghost.png')
+
+imageList = []
+for i in range(5):
+    imageDict = {'x' : random.randint(0, 750), 'y' : random.randint(-200, 560), 'img' : random.randint(0, 1) }
+    imageList.append(imageDict)
+
+run = True
+while run:
+    screen.fill(WHITE)
+    for i in range(5):
+        imageList[i]['y'] += 1
+        if imageList[i]['y'] == 600:
+            imageList[i]['y'] = -50
+
+        if imageList[i]['img'] == 0:
+            screen.blit(carImg, (imageList[i]['x'], imageList[i]['y']))
+        elif imageList[i]['img'] == 1:
+            screen.blit(ghostImg, (imageList[i]['x'], imageList[i]['y']))
+
+    for event in pygame.event.get():
+        # quit game
+        if event.type == pygame.QUIT:
+            run = False
+
+    pygame.display.update()
+    clock.tick(60)
+pygame.quit()
+sys.exit()
 ******************************************************************************
                                       Lesson 9
                                  Классы. Полиморфизм.
@@ -1043,13 +1231,12 @@ running = True
 clock = pygame.time.Clock()
 
 while running:
+    screen.fill((255, 255, 255)) # Fill the background with white
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    player.update() # Update the player's state
-
-    screen.fill((255, 255, 255)) # Fill the background with white
+    player.update() # Update the player's state 
     screen.blit(player.image, player.rect) # Draw the player on the screen
 
     pygame.display.flip()
