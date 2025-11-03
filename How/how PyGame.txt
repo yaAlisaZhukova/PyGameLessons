@@ -1198,7 +1198,10 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(x, y)) # Get the rect and position it
 
         self.speed = 5
-
+    
+	def draw(self, screen):
+        screen.blit(self.image, self.rect)
+		
     def update(self):
         # Example: Simple movement based on key presses
         keys = pygame.key.get_pressed()
@@ -1237,7 +1240,7 @@ while running:
             running = False
 
     player.update() # Update the player's state 
-    screen.blit(player.image, player.rect) # Draw the player on the screen
+    player.draw(screen) # Draw the player on the screen
 
     pygame.display.flip()
     clock.tick(60)
