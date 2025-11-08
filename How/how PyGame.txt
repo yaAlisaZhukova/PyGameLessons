@@ -1373,11 +1373,9 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, image):
         super().__init__()
-        self.image = image
-        self.x = x
-        self.y = y
+        self.image = image 
         self.speed = 3
-        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+        self.rect = self.image.get_rect(topleft=(x, y))
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -1401,11 +1399,9 @@ import pygame
 class Stone(pygame.sprite.Sprite):
     def __init__(self, x, y, image):
         super().__init__()
-        self.image = image
-        self.x = x
-        self.y = y
+        self.image = image 
         self.speed = 1
-        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+        self.rect = self.image.get_rect(topleft=(x, y))
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
