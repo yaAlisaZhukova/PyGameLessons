@@ -268,14 +268,14 @@ def keyPressed():
     global carX, carY
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
         carX -= 2
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
         carX += 1
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP]or keys[pygame.K_w]]:
         carY -= 1
-    if keys[pygame.K_DOWN]:
-        carY += 1
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        carY += 1 
 
 while running:
     for event in pygame.event.get():
@@ -321,13 +321,13 @@ def keyPressed():
     global mirtyX, mirtyY
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
         mirtyX -= 1
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
         mirtyX += 1
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] or keys[pygame.K_w]:
         mirtyY -= 1
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
         mirtyY += 1
 
 while running:
@@ -1187,7 +1187,8 @@ sys.exit()
                                       Lesson 9
                                  Классы. Полиморфизм.
 ****************************************************************************** 
-1. class Player
+1.1. class Player
+C:\web\Python\Projects\Alisa\AlisaLessons\classPlayer\player.py
 
 import pygame
 
@@ -1206,17 +1207,19 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         # Example: Simple movement based on key presses
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.rect.x -= self.speed
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.rect.x += self.speed
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
             self.rect.y -= self.speed
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.rect.y += self.speed
 
 -----------------------------------------------------
-2. main.py
+1.2. main.py
+
+C:\web\Python\Projects\Alisa\AlisaLessons\classPlayer\main.py
 
 import pygame
 from player import Player
@@ -1247,8 +1250,168 @@ while running:
     clock.tick(60)
 
 pygame.quit()
+---------------------------------------------------------------------------
+2.1. Player
 
- 
+import pygame
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self, x, y, image):
+        super().__init__()
+        self.image = image
+        self.x = x
+        self.y = y
+        self.speed = 3
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+
+    def update(self):
+        # Example: Simple movement based on key presses
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.rect.x += self.speed
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            self.rect.y -= self.speed
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.rect.y += self.speed
+---------------------------------------------------------------------------
+2.2. main.py
+
+import pygame
+from player import Player
+
+pygame.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Ghost')
+stone = pygame.image.load("img/stone.png")
+mirtyImg = pygame.image.load("img/mirty10.png")
+stoneRect = stone.get_rect(topleft=(100, 400))
+
+player = Player(400, 400, mirtyImg)
+clock = pygame.time.Clock()
+showMirty = True
+run = True
+
+while run:
+    clock.tick(60)
+    screen.fill((255,255,255))
+
+    for event in pygame.event.get():
+        # quit game
+        if event.type == pygame.QUIT:
+            run = False
+
+    player.update()
+    if showMirty:
+        player.draw(screen)
+
+    screen.blit(stone, stoneRect)
+    stoneRect.x += 1
+
+    if player.rect.colliderect(stoneRect):
+        showMirty = False
+    pygame.display.update()
+pygame.quit()
+--------------------------------------------------------
+3.1. main.py
+
+import pygame
+from player import Player
+from stone import Stone
+
+pygame.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Ghost')
+stoneImg = pygame.image.load("img/stone.png")
+mirtyImg = pygame.image.load("img/mirty10.png")
+
+player = Player(400, 400, mirtyImg)
+stone = Stone(100, 400, stoneImg)
+clock = pygame.time.Clock()
+showMirty = True
+run = True
+
+while run:
+    clock.tick(60)
+    screen.fill((255,255,255))
+
+    for event in pygame.event.get():
+        # quit game
+        if event.type == pygame.QUIT:
+            run = False
+
+    player.update()
+    stone.update()
+
+    if showMirty:
+        player.draw(screen)
+    stone.draw(screen)
+
+    #if player.rect.colliderect(stone.rect):
+    if pygame.sprite.collide_rect(player, stone):
+        showMirty = False
+
+    pygame.display.update()
+pygame.quit()
+--------------------------------------------------------
+3.2. player.py
+
+import pygame
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self, x, y, image):
+        super().__init__()
+        self.image = image
+        self.x = x
+        self.y = y
+        self.speed = 3
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+
+    def update(self):
+        # Example: Simple movement based on key presses
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.rect.x += self.speed
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            self.rect.y -= self.speed
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.rect.y += self.speed
+--------------------------------------------------------
+3.3. stone.py
+
+import pygame
+
+class Stone(pygame.sprite.Sprite):
+    def __init__(self, x, y, image):
+        super().__init__()
+        self.image = image
+        self.x = x
+        self.y = y
+        self.speed = 1
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+
+    def update(self):
+        self.rect.x += self.speed 
 ***************************************************************************
                          empty_screen
 ***************************************************************************
