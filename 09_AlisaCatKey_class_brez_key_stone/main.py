@@ -1,6 +1,5 @@
 import pygame
 import sys
-import random
 from sprite import Player, GoldenKey, Stone
 
 pygame.init()
