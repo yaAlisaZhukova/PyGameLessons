@@ -803,6 +803,9 @@ pygame.quit()
 									коллизии .colliderect
 									классы колизии
 									pygame.sprite.spritecollide
+									   pygame.sprite.spritecollide(brez, golden_key_group, True)
+									pygame.sprite.groupcollide   
+									   pygame.sprite.groupcollide(stone_group, bullet_group, True, True)
 ********************************************************************************** 
 1.
 import pygame
