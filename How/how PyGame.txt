@@ -1103,7 +1103,7 @@ while running:
 pygame.quit()
 **********************************************************************************
                                             Lesson 5
-											Doctionary
+											Dictionary
 **********************************************************************************
 1. 
 SCREEN_WIDTH = 800
@@ -1186,7 +1186,13 @@ sys.exit()
 ******************************************************************************
                                       Lesson 9
                                  Классы. Полиморфизм.
+								 
+								 pygame.sprite.collide_rect(player, stone)
+								 hits = pygame.sprite.groupcollide(enemies, bullets, True, True)
+								 pygame.sprite.spritecollide(ship, monsters, False)
 ****************************************************************************** 
+кот бегает, собрать ему надо 2 ключа, тогда попадает в другую локацию 
+
 1.1. class Player
 C:\web\Python\Projects\Alisa\AlisaLessons\classPlayer\player.py
 
@@ -1231,8 +1237,8 @@ screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Player class")
 
-player_image = pygame.image.load('img/mirty10.png')
-player = Player(screen_width // 2 - 25, screen_height - 200, player_image) # Create a player instance
+player_path = '../img/mirty10.png'
+player = Player(300, 300, player_path) # Create a player instance
 
 running = True
 clock = pygame.time.Clock()
@@ -1243,29 +1249,30 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    player.update() # Update the player's state 
+    player.update() # Update the player's state
     player.draw(screen) # Draw the player on the screen
 
     pygame.display.flip()
     clock.tick(60)
 
-pygame.quit()
+pygame.quit() 
 ---------------------------------------------------------------------------
 2.1. Player
 
 import pygame
 
+# Inherit from pygame.sprite.Sprite
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, image):
+    def __init__(self, x, y, path):
         super().__init__()
-        self.image = image
-        self.x = x
-        self.y = y
-        self.speed = 3
-        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+        self.image = pygame.image.load(path)
+        self.rect = self.image.get_rect(topleft=(x, y))  # Get the rect and position it
+
+        self.speed = 5
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+
 
     def update(self):
         # Example: Simple movement based on key presses
@@ -1291,6 +1298,7 @@ SCREEN_HEIGHT = 600
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Ghost')
+
 stone = pygame.image.load("img/stone.png")
 mirtyImg = pygame.image.load("img/mirty10.png")
 stoneRect = stone.get_rect(topleft=(100, 400))
@@ -1304,8 +1312,7 @@ while run:
     clock.tick(60)
     screen.fill((255,255,255))
 
-    for event in pygame.event.get():
-        # quit game
+    for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
             run = False
 
@@ -1391,10 +1398,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.y -= self.speed
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.rect.y += self.speed
---------------------------------------------------------
-3.3. stone.py
-
-import pygame
+ 
+ 
 
 class Stone(pygame.sprite.Sprite):
     def __init__(self, x, y, image):
@@ -1408,6 +1413,218 @@ class Stone(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x += self.speed 
+----------------------------------------------------------------
+4.  Алиса код
+
+import pygame
+import sys
+import random
+
+pygame.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Cat')
+
+brez = pygame.transform.scale(pygame.image.load('img/briz.png'),(70, 70))
+brezRect = brez.get_rect(topleft=(50, 50))
+
+Key = pygame.transform.scale(pygame.image.load('img/key.png'),(60, 60))
+KeyRect = Key.get_rect(topleft=(random.randint(0,800), random.randint(0,600)))
+
+WHITE = (255,255,255)
+clock = pygame.time.Clock()
+
+def keyPressed(): 
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+        brezRect.x -= 1
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        brezRect.x += 1
+    if keys[pygame.K_UP] or keys[pygame.K_w]:
+        brezRect.y -= 1
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        brezRect.y += 1
+
+run = True
+while run:
+    clock.tick(90)
+    keyPressed()
+    screen.fill(WHITE)
+    for event in pygame.event.get():
+        # quit game
+        if event.type == pygame.QUIT:
+            run = False
+    screen.blit(brez, brezRect)
+    for i in range(2):
+        KeyRect.x = random.randint(0,800)
+        KeyRect.y = random.randint(0, 600)
+        screen.blit(Key, KeyRect)
+    pygame.display.update()
+pygame.quit()
+sys.exit()
+--------------------------------------------------
+5. AlisaCatKey_1
+C:\web\Python\Projects\Alisa\AlisaLessons\Lasson 9\AlisaCatKey_1\main.py
+
+import pygame
+import sys
+import random
+
+pygame.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Cat')
+
+brez = pygame.transform.scale(pygame.image.load('../img/briz.png'),(70, 70))
+brezRect = brez.get_rect(topleft=(50, 50))
+
+Key = pygame.transform.scale(pygame.image.load('../img/key.png'),(60, 60))
+key_rect_list = []
+for i in range(2):
+    keyRect = Key.get_rect(topleft=(random.randint(0,800), random.randint(0,600)))
+    key_rect_list.append(keyRect)
+
+WHITE = (255,255,255)
+clock = pygame.time.Clock()
+
+def keyPressed():
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+        brezRect.x -= 1
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        brezRect.x += 1
+    if keys[pygame.K_UP] or keys[pygame.K_w]:
+        brezRect.y -= 1
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        brezRect.y += 1
+
+run = True
+while run:
+    clock.tick(90)
+    keyPressed()
+    screen.fill(WHITE)
+    for event in pygame.event.get():
+        # quit game
+        if event.type == pygame.QUIT:
+            run = False
+    screen.blit(brez, brezRect)
+    for key_rect in key_rect_list:
+        screen.blit(Key, key_rect)
+    pygame.display.update()
+pygame.quit()
+sys.exit()
+--------------------------------------------------------
+6.1. Алиса level  
+
+import pygame
+import sys
+import random
+
+pygame.init()
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Cat')
+
+brez = pygame.transform.scale(pygame.image.load('../img/briz.png'),(70, 70))
+brezRect = brez.get_rect(topleft=(50, 50))
+
+Key = pygame.transform.scale(pygame.image.load('../img/key.png'),(60, 60))
+key_rect_list = []
+
+def addKeys(level_key_number):
+    for i in range(level_key_number):
+        keyRect = Key.get_rect(topleft=(random.randint(0, 800), random.randint(0, 600)))
+        key_rect_list.append(keyRect)
+
+level_key_number = 2
+addKeys(level_key_number)
+
+WHITE = (255,255,255)
+clock = pygame.time.Clock()
+
+def keyPressed():
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+        brezRect.x -= 1
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        brezRect.x += 1
+    if keys[pygame.K_UP] or keys[pygame.K_w]:
+        brezRect.y -= 1
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        brezRect.y += 1
+
+run = True
+while run:
+    clock.tick(90)
+    keyPressed()
+    screen.fill(WHITE)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+
+    screen.blit(brez, brezRect)
+
+    if len(key_rect_list) == 0:
+        level_key_number += 5
+        addKeys(level_key_number)
+
+    for i in range(len(key_rect_list)):
+        screen.blit(Key, key_rect_list[i])
+        if brezRect.colliderect(key_rect_list[i]):
+            key_rect_list.pop(i)
+            break
+
+    pygame.display.update()
+pygame.quit()
+sys.exit() 		
+*******************************************************************
+		Lesson 9
+		Pyinstaller
+*******************************************************************
+1. Pyinstaller
+ 
+python -m pip install pyinstaller
+pip list
+
+pyinstaller               6.16.0
+----------------------------------------------
+2.
+pyinstaller --onefile Labirint.py  Script file 'Labirint.py' does not exist.
+
+pyinstaller --onefile --noconsole --add-data "img;img" main.py
+pyinstaller --onefile --noconsole main.py
+pyinstaller --onefile --add-data "img;img" main.py
+
+pip install --upgrade pyinstaller
+
+Add your project’s dist/ folder or the exact .exe file to McAfee’s exclusions list
+(usually under Settings → Real-Time Scanning → Excluded Files).
+
+Open your McAfee app.
+On the left menu, click the My Protection Widgets icon in McAfee security software for Windows tab.
+Under Device, click Real-Time Scanning. 
+Under Excluded Files, click Add file.
+---------------------------------------------
+python -m venv build_env
+build_env\Scripts\activate
+pip install --upgrade pip setuptools wheel pyinstaller
+
+Then build your exe inside that clean virtual environment.
+
+bash
+Copy code
+
+pyinstaller --onefile --noconsole main.py
 ***************************************************************************
                          empty_screen
 ***************************************************************************
