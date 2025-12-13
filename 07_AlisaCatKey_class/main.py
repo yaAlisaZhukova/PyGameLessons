@@ -13,6 +13,7 @@ pygame.display.set_caption('Cat')
 
 brez_img = pygame.transform.scale(pygame.image.load('img/briz.png'),(70, 70))
 brez = Player(100,100, brez_img)
+print(brez.__dict__)
 
 golden_key = pygame.transform.scale(pygame.image.load('img/key.png'),(60, 60))
 key_rect_list = []
@@ -30,8 +31,7 @@ clock = pygame.time.Clock()
 
 run = True
 while run:
-    clock.tick(90)
-     
+    clock.tick(60)
     screen.fill(WHITE)
 
     for event in pygame.event.get():

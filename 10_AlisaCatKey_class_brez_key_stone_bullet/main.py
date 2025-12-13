@@ -44,7 +44,7 @@ clock = pygame.time.Clock()
 
 run = True
 while run:
-    clock.tick(90) 
+    clock.tick(60)
     screen.fill(WHITE)
 
     for event in pygame.event.get():

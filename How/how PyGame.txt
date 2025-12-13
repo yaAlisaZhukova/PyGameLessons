@@ -802,6 +802,9 @@ pygame.quit()
                                     Lesson 4
 									коллизии .colliderect
 									классы колизии
+									
+									pygame.sprite.collide_rect(sprite1, sprite2)
+									
 									pygame.sprite.spritecollide
 									   pygame.sprite.spritecollide(brez, golden_key_group, True)
 									pygame.sprite.groupcollide   
