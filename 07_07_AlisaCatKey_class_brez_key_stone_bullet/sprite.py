@@ -2,12 +2,10 @@ import random
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, image, bullet_image, bullet_group):
+    def __init__(self, x, y, image):
         super().__init__()
         self.image = image
         self.rect = image.get_rect(topleft=(x,y))
-        self.bullet_image = bullet_image 
-        self.bullet_group = bullet_group
 
     def draw(self, screen):
         screen.blit(self.image,self.rect)
@@ -15,23 +13,23 @@ class Player(pygame.sprite.Sprite):
     def update(self): 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            self.rect.x -= 1
+            self.rect.x -= 3
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            self.rect.x += 1
+            self.rect.x += 3
         if keys[pygame.K_UP] or keys[pygame.K_w]:
-            self.rect.y -= 1
+            self.rect.y -= 3
         if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            self.rect.y += 1 
+            self.rect.y += 3
 
-    def fire(self):
-        bullet = Bullet(self.rect.x, self.rect.y, self.bullet_image)  
-        self.bullet_group.add(bullet)       
+    def fire(self, bullet_image, bullet_group):
+        bullet = Bullet(self.rect.x, self.rect.y, bullet_image)
+        bullet_group.add(bullet)
 
 class GoldenKey(pygame.sprite.Sprite):
     def __init__(self, image):
         super().__init__()
         self.image = image
-        self.rect = image.get_rect(topleft=((random.randint(0, 800), random.randint(0, 600)))) 
+        self.rect = image.get_rect(topleft=((random.randint(50, 750), random.randint(50, 550))))
 
 class Stone(pygame.sprite.Sprite):
     def __init__(self, image):
@@ -51,8 +49,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = image.get_rect(topleft=(x,y))
 
     def update(self):
-        self.rect.x += 3
-        if self.rect.x > 800:
+        self.rect.y -= 3
+        if self.rect.y > 600:
             self.kill()
 
 

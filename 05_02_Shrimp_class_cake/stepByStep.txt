@@ -1,3 +1,8 @@
+shrimp
+https://scratch.mit.edu/projects/1256613960/
+
+05_01_Shrimp_class
+
 1. Создать папку Alisa_Lessons
 2. В папке Alisa_Lessons создать папку 01_Shrimp_class
 3. Скачать файл how PyGame.txt
@@ -6,10 +11,11 @@
 - поместить его в папку 01_Shrimp_class
 4. Создать файл main.py в папке 01_Shrimp_class и добавить в него код из github
 how PyGame.txt -> 10
-5. Создать файл sprite.py в папке 01_Shrimp_class
-6. В файле sprite.py создать класс Shrimp
-7. добавить метод draw и update в класс Shrimp
-8. Создать/скачать  картинку shrimp.png
+5. В папке 01_Shrimp_class создать папку img и поместить туда
+имиджи shrimp.png и cake.png
+6. Создать файл sprite.py в папке 01_Shrimp_class
+7. В файле sprite.py создать класс Shrimp
+8. добавить метод draw и update в класс Shrimp
 9. создать экземпляр класса Shrimp в файле main.py
 10. отрисовывать картинку Shrimp в цикле while
 11. Вызвать метод update() в экземпляре класса Shrimp
@@ -19,8 +25,8 @@ how PyGame.txt -> 10
 1. Копировать папку 05_01_Shrimp_class и переименовать копию в
 05_02_Shrimp_class_cake
 2. В файле sprite.py создать класс Cake
-3. добавить метод draw и update в класс Shrimp
+3. добавить метод draw и update в класс Cake
 4. Создать/скачать картинку cake.png
 5. создать экземпляр класса Cake в файле main.py
 6. отрисовывать картинку Cake в цикле while
-7. Вызвать метод update() в экземпляре класса Shrimp
+7. Вызвать метод update() в экземпляре класса Cake
